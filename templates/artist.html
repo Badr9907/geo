@@ -1,56 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>{{.Artist.Name}} - Groupie Tracker</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: sans-serif;
-      background-color: #f3f3f3;
-      padding: 30px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1f1f1f, #2e8b8b);
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      padding: 40px 20px;
+      color: #f0fdfa;
     }
+
     .artist-card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       max-width: 600px;
-      padding: 20px;
+      width: 100%;
+      padding: 30px 40px;
       text-align: center;
+      transition: transform 0.3s ease;
     }
+
+    .artist-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
     img {
       width: 100%;
       height: auto;
-      border-radius: 10px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease;
+      cursor: pointer;
     }
+
+    img:hover {
+      transform: scale(1.03);
+    }
+
     h1 {
-      margin-top: 20px;
+      font-weight: 600;
+      font-size: 2.5rem;
+      margin: 25px 0 10px;
+      letter-spacing: 1px;
     }
+
+    p {
+      font-weight: 300;
+      font-size: 1.1rem;
+      margin: 8px 0;
+    }
+
     ul {
       list-style: none;
-      padding: 0;
-    }
-    .concerts {
-      margin-top: 20px;
+      margin-top: 15px;
+      padding-left: 0;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: #e3fdfd;
       text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.3s ease;
+    }
+
+    ul li:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .concerts {
+      margin-top: 30px;
+    }
+
+    .concerts h2 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #a0f7f5;
+    }
+
+    .concerts ul li {
+      color: #c8f7f6;
+      font-weight: 500;
+      font-size: 1.05rem;
+      border: none;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+    }
+
     a {
       display: inline-block;
-      margin-top: 15px;
-      color: #0077b5;
+      margin-top: 35px;
       text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #72efdd;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 12px 28px;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(114,239,221,0.4);
+      transition: background 0.3s ease, color 0.3s ease;
+      letter-spacing: 1px;
     }
+
     a:hover {
-      text-decoration: underline;
+      color: #1f4037;
+      background: #72efdd;
+      box-shadow: 0 6px 16px rgba(114,239,221,0.7);
+    }
+
+    @media (max-width: 640px) {
+      .artist-card {
+        padding: 20px 25px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      p, ul li, .concerts h2 {
+        font-size: 1rem;
+      }
+      a {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
 <body>
-
   <div class="artist-card">
-    <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+    <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" />
     <h1>{{.Artist.Name}}</h1>
     <p><strong>First Album:</strong> {{.Artist.FirstAlbum}}</p>
     <p><strong>Creation Date:</strong> {{.Artist.CreationDate}}</p>
@@ -70,6 +171,5 @@
     </div>
     <a href="/">← Back to home</a>
   </div>
-
 </body>
 </html>
