@@ -20,7 +20,7 @@ func FetchArtists() ([]Artist, error) {
 	return artists, err
 }
 
-func fetchConcerts(url string, id int) []string {
+func FetchConcerts(url string, id int) []string {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil
@@ -64,8 +64,9 @@ type ArtistPageData struct {
 	Concerts []string
 	Dates    []string
 }
+
 // gettting api for dates and fetching it
-func fetchDates(id int) []string {
+func FetchDates(id int) []string {
 	DatesUrl := "https://groupietrackers.herokuapp.com/api/dates/"
 
 	resp, err := http.Get(DatesUrl + strconv.Itoa(id))

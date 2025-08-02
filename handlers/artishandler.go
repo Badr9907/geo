@@ -35,8 +35,8 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	relationsURL := "https://groupietrackers.herokuapp.com/api/locations"
 
-	locations := fetchConcerts(relationsURL, id)
-	dates := fetchDates(id)
+	locations := FetchConcerts(relationsURL, id)
+	dates := FetchDates(id)
 	var newdates []string
 
 	for i := 0; i < len(dates); i++ {
