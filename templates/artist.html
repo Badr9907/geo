@@ -64,7 +64,7 @@
       <h2>Concerts:</h2>
       <ul>
         {{range $i, $loc := .Concerts}}
-          <li><strong>{{$loc}}</strong> — {{index $.Dates $i}}</li>
+          <li><strong>{{$loc}}</strong> : {{index $.Dates $i}}</li>
         {{end}}
       </ul>
     </div>
