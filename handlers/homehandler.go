@@ -12,6 +12,10 @@ import (
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET"{
+		http.Error(w,"method not allowed",http.StatusBadRequest)
+		return
+	}
 	artists, err := FetchArtists()
 	if err != nil {
 		http.Error(w, "Failed to fetch artists", http.StatusInternalServerError)
@@ -36,6 +40,10 @@ func FetchArtists() ([]Artist, error) {
 }
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET"{
+		http.Error(w,"method not allowed",http.StatusBadRequest)
+		return
+	}
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
