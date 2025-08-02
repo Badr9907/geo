@@ -2,18 +2,16 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET"{
-		http.Error(w,"method not allowed",http.StatusBadRequest)
+	if r.Method != "GET" {
+		http.Error(w, "method not allowed", http.StatusBadRequest)
 		return
 	}
 	artists, err := FetchArtists()
@@ -40,8 +38,8 @@ func FetchArtists() ([]Artist, error) {
 }
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET"{
-		http.Error(w,"method not allowed",http.StatusBadRequest)
+	if r.Method != "GET" {
+		http.Error(w, "method not allowed", http.StatusBadRequest)
 		return
 	}
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
@@ -65,8 +63,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	relationsURL := selected.Relations
-	relationsURL = "https://groupietrackers.herokuapp.com/api/locations"
+	relationsURL := "https://groupietrackers.herokuapp.com/api/locations"
 
 	locations := fetchConcerts(relationsURL, id)
 	dates := fetchDates(id)
@@ -83,11 +80,6 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		newdates = append(newdates, l)
 
 	}
-	fmt.Println(newdates)
-
-	// fmt.Println(id)
-	// log.Println(dates)
-	// log.Println("Artist ID:", id, "Locations:", locations,"dates",dates)
 
 	data := ArtistPageData{
 		Artist:   selected,
@@ -112,10 +104,7 @@ func fetchConcerts(url string, id int) []string {
 
 	for _, entry := range rel.Index {
 		if entry.ID == id {
-			//	fmt.Println("4")
-			log.Println(entry.Locations)
 			return entry.Locations
-
 		}
 	}
 	return nil
@@ -149,7 +138,6 @@ type ArtistPageData struct {
 
 func fetchDates(id int) []string {
 	DatesUrl := "https://groupietrackers.herokuapp.com/api/dates/"
-	fmt.Println("dsad")
 
 	resp, err := http.Get(DatesUrl + strconv.Itoa(id))
 	if err != nil {
@@ -161,7 +149,7 @@ func fetchDates(id int) []string {
 	var dates reeldata
 	errr := json.Unmarshal(body, &dates)
 	if errr != nil {
-		fmt.Println("dazzzzz")
+		return nil
 	}
 
 	return dates.Dates
