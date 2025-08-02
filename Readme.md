@@ -40,3 +40,7 @@ The application uses the [Groupie Tracker API](https://groupietrackers.herokuapp
 ## License
 
 This project is for educational purposes.
+## Authors
+
+boulhaj
+mhilli
