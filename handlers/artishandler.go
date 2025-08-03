@@ -9,7 +9,7 @@ import (
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
-		http.Error(w, "method not allowed", http.StatusBadRequest)
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")

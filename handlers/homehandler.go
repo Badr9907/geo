@@ -9,7 +9,7 @@ import (
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	// checking the method
 	if r.Method != "GET" {
-		http.Error(w, "method not allowed", http.StatusBadRequest)
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	// fetching artistes then parsing files

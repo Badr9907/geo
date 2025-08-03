@@ -39,6 +39,26 @@ func FetchConcerts(url string, id int) []string {
 	return nil
 }
 
+// gettting api for dates and fetching it
+func FetchDates(id int) []string {
+	DatesUrl := "https://groupietrackers.herokuapp.com/api/dates/"
+
+	resp, err := http.Get(DatesUrl + strconv.Itoa(id))
+	if err != nil {
+		return nil
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	var dates reeldata
+	errr := json.Unmarshal(body, &dates)
+	if errr != nil {
+		return nil
+	}
+
+	return dates.Dates
+}
+
 type Artist struct {
 	ID           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -63,24 +83,4 @@ type ArtistPageData struct {
 	Artist   Artist
 	Concerts []string
 	Dates    []string
-}
-
-// gettting api for dates and fetching it
-func FetchDates(id int) []string {
-	DatesUrl := "https://groupietrackers.herokuapp.com/api/dates/"
-
-	resp, err := http.Get(DatesUrl + strconv.Itoa(id))
-	if err != nil {
-		return nil
-	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	var dates reeldata
-	errr := json.Unmarshal(body, &dates)
-	if errr != nil {
-		return nil
-	}
-
-	return dates.Dates
 }
