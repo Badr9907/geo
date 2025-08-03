@@ -8,14 +8,18 @@ import (
 // handling homepage request
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	// checking the method
+	if r.URL.Path != "/"{
+		HandleError(w,"404 not found",http.StatusNotFound)
+		return
+	}
 	if r.Method != "GET" {
-		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		HandleError(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	// fetching artistes then parsing files
 	artists, err := FetchArtists()
 	if err != nil {
-		http.Error(w, "Failed to fetch artists", http.StatusInternalServerError)
+		HandleError(w, "Failed to fetch artists", http.StatusInternalServerError)
 		return
 	}
 

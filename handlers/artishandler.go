@@ -9,19 +9,19 @@ import (
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
-		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		HandleError(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id, err := strconv.Atoi(idStr)
-	if err != nil {
+	if err != nil || id >52 || id < 1 {
 		http.Error(w, "Invalid artist ID", http.StatusBadRequest)
 		return
 	}
 
 	artists, err := FetchArtists()
 	if err != nil {
-		http.Error(w, "Failed to fetch artist", http.StatusInternalServerError)
+		HandleError(w, "Failed to fetch artist", http.StatusInternalServerError)
 		return
 	}
 
