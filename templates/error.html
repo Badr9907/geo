@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>.errorSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f8f9fa;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.statusCode {
+    font-size: 5rem;
+    color: #dc3545;
+    margin: 0;
+}
+
+.errorText {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0 20px;
+}
+
+.btnBack {
+    text-decoration: none !important;
+    padding: 10px 20px;
+    background-color: #1e92ff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+}
+
+.btnBack:hover {
+    background-color: #0056b3;
+}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error!</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <section class="errorSection">
+        <h2 class="statusCode">{{.statusCode}}</h2>
+        <h6 class="errorText">{{.errorText}}</h6>
+        <a href="/" class="btnBack">Go to Homepage</a>
+    </section>
+</body>
+</html>

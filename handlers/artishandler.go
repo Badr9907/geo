@@ -15,7 +15,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil || id >52 || id < 1 {
-		http.Error(w, "Invalid artist ID", http.StatusBadRequest)
+		HandleError(w, "Can't find this ID", http.StatusNotFound)
 		return
 	}
 
@@ -57,6 +57,11 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		Dates:    newdates,
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/artist.html"))
+	tmpl ,err:= template.ParseFiles("templates/artist.html")
+	if err!=nil{
+		HandleError(w,"can't access this file",http.StatusInternalServerError)
+		return
+	}
+
 	tmpl.Execute(w, data)
 }

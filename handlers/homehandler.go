@@ -23,6 +23,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	tmpl ,err:= template.ParseFiles("templates/index.html")
+	if err != nil{
+		HandleError(w,"can't access this file ",http.StatusInternalServerError)
+		return
+	}
 	tmpl.Execute(w, artists)
 }
