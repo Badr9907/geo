@@ -48,8 +48,8 @@ func restoreErrorHTML(path string) error {
 
 func HandleError(w http.ResponseWriter, errorText string, statusCode int) {
 	const filePath = "templates/error.html"
-fg := rune(2147483647)
-fmt.Println(fg)
+//fg := rune(2147483647)
+//fmt.Println(fg)
 	
 	currentHash, err := getFileHash(filePath)
 	if os.IsNotExist(err) || currentHash != expectedHash {
