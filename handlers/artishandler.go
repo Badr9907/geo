@@ -15,7 +15,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id, err := strconv.Atoi(idStr)
-	if err != nil || id > 52 || id < 1 {
+	if err != nil {
 		HandleError(w, "Can't find this ID", http.StatusNotFound)
 		return
 	}
@@ -25,20 +25,15 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		HandleError(w, "Failed to fetch artist", http.StatusInternalServerError)
 		return
 	}
-
-	var selected Artist
-	for _, a := range artists {
-		if a.ID == id {
-			selected = a
-			break
-		}
+	if id > len(artists) || id < 1 {
+		HandleError(w, "Can't find this ID", http.StatusNotFound)
+		return
 	}
 
-	relationsURL := "https://groupietrackers.herokuapp.com/api/locations"
-
-	locations := FetchConcerts(relationsURL, id)
+	selected := artists[id-1]
+	locations := Fetchlocation(id)
 	dates := FetchDates(id)
-	relations, _ := fetchrelation(id)
+	relations := fetchrelation(id)
 
 	data := ArtistPageData{
 		Artist:   selected,

@@ -17,10 +17,7 @@ type Artist struct {
 	Relations    string   `json:"relations"`
 }
 type Locations struct {
-	Index []struct {
-		ID        int      `json:"id"`
-		Locations []string `json:"locations"`
-	} `json:"index"`
+	Locations []string `json:"locations"`
 }
 type Dates struct {
 	Dates []string `json:"dates"`
@@ -50,8 +47,9 @@ func FetchArtists() ([]Artist, error) {
 	return artists, err
 }
 
-func FetchConcerts(url string, id int) []string {
-	resp, err := http.Get(url)
+func Fetchlocation(id int) []string {
+	relationsURL := "https://groupietrackers.herokuapp.com/api/locations/"
+	resp, err := http.Get(relationsURL + strconv.Itoa(id))
 	if err != nil {
 		return nil
 	}
@@ -61,12 +59,7 @@ func FetchConcerts(url string, id int) []string {
 	var rel Locations
 	json.Unmarshal(body, &rel)
 
-	for _, entry := range rel.Index {
-		if entry.ID == id {
-			return entry.Locations
-		}
-	}
-	return nil
+	return rel.Locations
 }
 
 // getting api for dates and fetching it
@@ -89,12 +82,12 @@ func FetchDates(id int) []string {
 	return dates.Dates
 }
 
-func fetchrelation(ids int) (map[string][]string, error) {
+func fetchrelation(ids int) map[string][]string {
 	DatesUrl := "https://groupietrackers.herokuapp.com/api/relation/"
 
 	resp, err := http.Get(DatesUrl + strconv.Itoa(ids))
 	if err != nil {
-		return map[string][]string{}, err
+		return map[string][]string{}
 	}
 	defer resp.Body.Close()
 	body, _ := io.ReadAll(resp.Body)
@@ -102,7 +95,7 @@ func fetchrelation(ids int) (map[string][]string, error) {
 	var rel Relations
 	errr := json.Unmarshal(body, &rel)
 	if errr != nil {
-		return map[string][]string{}, err
+		return map[string][]string{}
 	}
-	return rel.Relation, nil
+	return rel.Relation
 }
