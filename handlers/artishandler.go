@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	//"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
+// a function to handle /artist path
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		HandleError(w, "method not allowed", http.StatusMethodNotAllowed)
@@ -15,7 +15,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
 	id, err := strconv.Atoi(idStr)
-	if err != nil || id >52 || id < 1 {
+	if err != nil || id > 52 || id < 1 {
 		HandleError(w, "Can't find this ID", http.StatusNotFound)
 		return
 	}
@@ -38,27 +38,20 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	locations := FetchConcerts(relationsURL, id)
 	dates := FetchDates(id)
-	//var newdates []string
-	relations ,_ := fetchrelation(id)
-	//fmt.Println(relations)
-
-
-	
+	relations, _ := fetchrelation(id)
 
 	data := ArtistPageData{
 		Artist:   selected,
 		Concerts: locations,
 		Dates:    dates,
-		Relation:  relations,
+		Relation: relations,
 	}
 
-	tmpl ,err:= template.ParseFiles("templates/artist.html")
-	if err!=nil{
-		HandleError(w,"can't access this file",http.StatusInternalServerError)
+	tmpl, err := template.ParseFiles("templates/artist.html")
+	if err != nil {
+		HandleError(w, "can't access this file", http.StatusInternalServerError)
 		return
 	}
 
 	tmpl.Execute(w, data)
 }
-
-

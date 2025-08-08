@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1f1f1f, #2e8b8b);
+  min-height: 100vh;
+  color: #f0fdfa;
+}
+
+/* Header styles (index.html) */
+header {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.github-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.github-icon {
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.github-icon:hover {
+  color: #ccc;
+}
+
+.profile-photo {
+  position: absolute;
+  top: 35px;
+  right: -10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: none;
+  z-index: 10;
+}
+
+.github-container:hover .profile-photo {
+  display: block;
+}
+
+.user {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+/* Index page cards */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 30px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  width: 250px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.4s ease;
+}
+
+.card img:hover {
+  transform: scale(1.05);
+}
+
+.card h2 {
+  margin: 15px 0;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #f0fdfa;
+}
+
+.card a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  color: #72efdd;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card a:hover {
+  background: #72efdd;
+  color: #1f4037;
+}
+
+/* Artist page styles */
+.artist-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  max-width: 600px;
+  width: 100%;
+  padding: 30px 40px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  margin: 40px auto;
+}
+
+.artist-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.artist-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.artist-card img:hover {
+  transform: scale(1.03);
+}
+
+.artist-card h1 {
+  font-weight: 600;
+  font-size: 2.5rem;
+  margin: 25px 0 10px;
+  letter-spacing: 1px;
+}
+
+.artist-card p {
+  font-weight: 300;
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.artist-card ul {
+  list-style: none;
+  margin-top: 15px;
+  padding-left: 0;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: #e3fdfd;
+  text-align: left;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.artist-card ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.artist-card ul li:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.concerts {
+  margin-top: 30px;
+}
+
+.concerts h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #a0f7f5;
+}
+
+.concerts ul li {
+  color: #c8f7f6;
+  font-weight: 500;
+  font-size: 1.05rem;
+  border: none;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+.artist-card a {
+  display: inline-block;
+  margin-top: 35px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #72efdd;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 28px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(114,239,221,0.4);
+  transition: background 0.3s ease, color 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.artist-card a:hover {
+  color: #1f4037;
+  background: #72efdd;
+  box-shadow: 0 6px 16px rgba(114,239,221,0.7);
+}
+
+/* Error page styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1f1f1f, #2e8b8b);
+  color: white;
+  min-height: 100vh;
+}
+
+.errorSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.statusCode {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #ff4d6d;
+  margin-bottom: 10px;
+}
+
+.errorText {
+  font-size: 1.3rem;
+  color: #f0fdfa;
+  margin-bottom: 20px;
+}
+
+.btnBack {
+  display: inline-block;
+  padding: 12px 25px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #72efdd;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btnBack:hover {
+  background: #72efdd;
+  color: #1f4037;
+  transform: translateY(-2px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .container {
+    padding: 20px 10px;
+  }
+  .card {
+    width: 90%;
+  }
+  .artist-card {
+    padding: 20px 25px;
+  }
+  .artist-card h1 {
+    font-size: 2rem;
+  }
+  .artist-card p, .artist-card ul li, .concerts h2 {
+    font-size: 1rem;
+  }
+  .artist-card a {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

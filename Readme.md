@@ -31,6 +31,7 @@ Groupie Tracker is a web application written in Go that receives data from a pub
 - `main.go` - Starts the web server and sets up routes.
 - `handlers/` - Contains Go files for HTTP handlers and API data fetching.
 - `templates/` - HTML templates for the home page and artist detail pages.
+- `static/style.css` - Css styling for the homepage artistspage and error. 
 
 ## API
 
