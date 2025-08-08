@@ -83,4 +83,32 @@ type ArtistPageData struct {
 	Artist   Artist
 	Concerts []string
 	Dates    []string
+	Relation map[string][]string 
 }
+
+type relationship struct {
+	Relation map[string][]string `json:"datesLocations"`
+}
+
+func fetchrelation(ids int)( map[string][]string ,error){
+	DatesUrl := "https://groupietrackers.herokuapp.com/api/relation/"
+
+	resp, err := http.Get(DatesUrl + strconv.Itoa(ids))
+	if err != nil {
+		return  map[string][]string{}, err
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	var rel relationship
+	errr := json.Unmarshal(body, &rel)
+	if errr != nil {
+
+		return  map[string][]string{}, err
+	}
+	return rel.Relation ,nil
+	}
+
+
+
+

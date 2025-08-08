@@ -7,7 +7,6 @@ import (
 
 // handling homepage request
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	// checking the method
 	if r.URL.Path != "/"{
 		HandleError(w,"404 not found",http.StatusNotFound)
 		return

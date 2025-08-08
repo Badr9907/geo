@@ -162,12 +162,33 @@
       {{end}}
     </ul>
     <div class="concerts">
-      <h2>Concerts:</h2>
+      <h2>Location:</h2>
       <ul>
         {{range $i, $loc := .Concerts}}
-          <li><strong>{{$loc}}</strong> : {{index $.Dates $i}}</li>
+          <li><strong>{{$loc}}</strong></li>
         {{end}}
       </ul>
+      <br> 
+      <h2>Dates:</h2>
+      <ul>
+         {{range $i, $Date := .Dates}}
+         <li><strong>{{$Date}}</strong></li>
+         {{end}}
+
+      </ul>
+     <h2>Relation:</h2>
+<ul>
+  {{range $key, $vals := .Relation}}
+    <li><strong>{{$key}}</strong>
+      <ul>
+        {{range $i, $v := $vals}}
+          <li>{{$v}}</li>
+        {{end}}
+      </ul>
+    </li>
+  {{end}}
+</ul>
+
     </div>
     <a href="/">← Back to home</a>
   </div>

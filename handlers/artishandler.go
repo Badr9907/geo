@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	//"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -37,24 +38,18 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	locations := FetchConcerts(relationsURL, id)
 	dates := FetchDates(id)
-	var newdates []string
+	//var newdates []string
+	relations ,_ := fetchrelation(id)
+	//fmt.Println(relations)
 
-	for i := 0; i < len(dates); i++ {
-		l := ""
-		ok := dates[i]
-		for j := 0; j < len(ok); j++ {
-			if ok[j] != '*' {
-				l += string(ok[j])
-			}
-		}
-		newdates = append(newdates, l)
 
-	}
+	
 
 	data := ArtistPageData{
 		Artist:   selected,
 		Concerts: locations,
-		Dates:    newdates,
+		Dates:    dates,
+		Relation:  relations,
 	}
 
 	tmpl ,err:= template.ParseFiles("templates/artist.html")
@@ -65,3 +60,5 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	tmpl.Execute(w, data)
 }
+
+
