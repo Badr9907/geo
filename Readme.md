@@ -17,6 +17,8 @@ Groupie Tracker is a web application written in Go that receives data from a pub
 - Uses only Go standard packages.
 
 ## How to Run
+you can use this link :
+https://groupie-tracker-production-b0ba.up.railway.app/
 
 1. Clone the repository.
 2. Make sure you have Go installed.
