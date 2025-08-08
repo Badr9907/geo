@@ -9,6 +9,8 @@ import (
 	"strconv"
 )
 
+// The original HTML template for the error page.
+// Used to restore the error.html file if it is missing or modified.
 const originalErrorHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,9 +30,9 @@ const originalErrorHTML = `<!DOCTYPE html>
 </body>
 </html>`
 
+const expectedHash = "cf13c96145c2ee1d83dead5c76a5ebb69f1d7faab7944b81fc065b6dc581a597"
 
-const expectedHash = "cf13c96145c2ee1d83dead5c76a5ebb69f1d7faab7944b81fc065b6dc581a597" 
-
+// getFileHash returns the SHA256 hash of the file at the given path.
 func getFileHash(path string) (string, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -40,17 +42,14 @@ func getFileHash(path string) (string, error) {
 	return fmt.Sprintf("%x", hash), nil
 }
 
-
 func restoreErrorHTML(path string) error {
-	return os.WriteFile(path, []byte(originalErrorHTML), 0644)
+	return os.WriteFile(path, []byte(originalErrorHTML), 0o644)
 }
 
-
+// HandleError checks if the error.html file exists and is unmodified.
 func HandleError(w http.ResponseWriter, errorText string, statusCode int) {
 	const filePath = "templates/error.html"
-//fg := rune(2147483647)
-//fmt.Println(fg)
-	
+
 	currentHash, err := getFileHash(filePath)
 	if os.IsNotExist(err) || currentHash != expectedHash {
 		restoreErr := restoreErrorHTML(filePath)
@@ -59,13 +58,10 @@ func HandleError(w http.ResponseWriter, errorText string, statusCode int) {
 			return
 		}
 	}
-
-	
 	myMap := map[string]string{
 		"errorText":  errorText,
 		"statusCode": strconv.Itoa(statusCode),
 	}
-
 	tmpl, err := template.ParseFiles(filePath)
 	if err != nil {
 		http.Error(w, "500 Internal Server Error (parse error)", http.StatusInternalServerError)
