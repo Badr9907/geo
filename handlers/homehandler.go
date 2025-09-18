@@ -27,5 +27,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		HandleError(w,"can't access this file ",http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, artists)
+	err1 := tmpl.Execute(w, artists)
+	if err1!=nil{
+		HandleError(w,"Failed to show artists",http.StatusInternalServerError)
+
+	}
+	
 }

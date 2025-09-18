@@ -48,5 +48,8 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl.Execute(w, data)
+	error1 := tmpl.Execute(w, data)
+	if error1 != nil{
+		HandleError(w,"Failed to show artists",http.StatusInternalServerError)
+	}
 }
