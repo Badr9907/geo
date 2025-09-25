@@ -35,11 +35,25 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	dates := FetchDates(id)
 	relations := fetchrelation(id)
 
+	// Geocode each concert location
+	var markers []MapMarker
+	for _, loc := range locations {
+		coords, err := GeocodeLocation(loc)
+		if err == nil {
+			markers = append(markers, MapMarker{
+				Location: loc,
+				Lat:      coords.Lat,
+				Lon:      coords.Lon,
+			})
+		}
+	}
+
 	data := ArtistPageData{
 		Artist:   selected,
 		Concerts: locations,
 		Dates:    dates,
 		Relation: relations,
+		Markers:  markers,
 	}
 
 	tmpl, err := template.ParseFiles("templates/artist.html")
@@ -48,8 +62,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	error1 := tmpl.Execute(w, data)
-	if error1 != nil{
-		HandleError(w,"Failed to show artists",http.StatusInternalServerError)
+	if err := tmpl.Execute(w, data); err != nil {
+		HandleError(w, "Failed to show artists", http.StatusInternalServerError)
 	}
 }
