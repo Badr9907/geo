@@ -23,16 +23,25 @@ type Dates struct {
 	Dates []string `json:"dates"`
 }
 
+type MapMarker struct {
+	Location string
+	Lat      string
+	Lon      string
+}
+
 type ArtistPageData struct {
 	Artist   Artist
 	Concerts []string
 	Dates    []string
 	Relation map[string][]string
+	Markers  []MapMarker
 }
 
 type Relations struct {
 	Relation map[string][]string `json:"datesLocations"`
 }
+
+// ...rest of your code unchanged...
 
 func FetchArtists() ([]Artist, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
