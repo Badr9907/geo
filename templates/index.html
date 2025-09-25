@@ -24,9 +24,8 @@
       <h4 class="user">BADR OULHAJ</h4>
     </div>
   </header>
-
   <div class="container">
-    {{range .}}
+    {{range .Artists}}
       <div class="card" onclick="location.href='/artist/{{.ID}}';">
         <img src="{{.Image}}" alt="{{.Name}}" />
         <h2>{{.Name}}</h2>
@@ -34,6 +33,28 @@
       </div>
     {{end}}
   </div>
+<form method="GET" action="/" class="filter-form">
+  <fieldset>
+    <legend>Creation Date</legend>
+    <label>From: <input type="number" name="creation_min" min="1900" max="2100"></label>
+    <label>To: <input type="number" name="creation_max" min="1900" max="2100"></label>
+  </fieldset>
+  <fieldset>
+    <legend>First Album Year</legend>
+    <label>From: <input type="number" name="album_min" min="1900" max="2100"></label>
+    <label>To: <input type="number" name="album_max" min="1900" max="2100"></label>
+  </fieldset>
+  <fieldset>
+    <legend>Number of Members</legend>
+    <label><input type="checkbox" name="members" value="1">1</label>
+    <label><input type="checkbox" name="members" value="2">2</label>
+    <label><input type="checkbox" name="members" value="3">3</label>
+    <label><input type="checkbox" name="members" value="4">4</label>
+    <label><input type="checkbox" name="members" value="5">5</label>
+    <label><input type="checkbox" name="members" value="6">6+</label>
+  </fieldset>
+  <button type="submit">Apply Filters</button>
+</form>
 
 </body>
 </html>
