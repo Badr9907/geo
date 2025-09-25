@@ -17,35 +17,23 @@
         <li>{{.}}</li>
       {{end}}
     </ul>
-    <div class="concerts">
-      <h2>Location:</h2>
-      <ul>
-        {{range $i, $loc := .Concerts}}
-          <li><strong>{{$loc}}</strong></li>
-        {{end}}
-      </ul>
-      <br> 
-      <h2>Dates:</h2>
-      <ul>
-         {{range $i, $Date := .Dates}}
-         <li><strong>{{$Date}}</strong></li>
-         {{end}}
-
-      </ul>
-     <h2>Relation:</h2>
-<ul>
-  {{range $key, $vals := .Relation}}
-    <li><strong>{{$key}}</strong>
-      <ul>
-        {{range $i, $v := $vals}}
-          <li>{{$v}}</li>
-        {{end}}
-      </ul>
-    </li>
+  <div class="concerts">
+  <h2>Concert Locations Map:</h2>
+  {{if .Markers}}
+    <img
+      src="https://staticmap.openstreetmap.de/staticmap.php?size=600x400{{range .Markers}}&markers={{.Lat}},{{.Lon}},red{{end}}"
+      alt="Concert Locations Map"
+      style="width:100%;max-width:600px;"
+    />
+    <ul>
+      {{range .Markers}}
+        <li>{{.Location}} ({{.Lat}}, {{.Lon}})</li>
+      {{end}}
+    </ul>
+  {{else}}
+    <p>No locations found.</p>
   {{end}}
-</ul>
-
-    </div>
+</div>
     <a href="/">← Back to home</a>
   </div>
 </body>
